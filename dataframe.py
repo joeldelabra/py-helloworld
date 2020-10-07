@@ -1,20 +1,21 @@
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 
-years = [1950, 1970, 1990, 2010]
+years = [1950, 1970, 1990, 2010] #X
 
-population = [2.519, 3.692, 5.263, 6.972]
+population = [2.519, 3.692, 5.263, 6.972] #Y
+deaths = [0.519, 1.692, 10.263, 2.972] #Y
 
-death = [515, 3.584,8.631,840]
-
-plt.title('Poblacion Anual')
+plt.title('Población anual')
 
 plt.xlabel('año')
-plt.ylabel('Poblacion')
+plt.ylabel('Población')
 
-plt.plot(years, population,'b', years, death, 'g')
-plt.scatter(years, population, color = 'red')
-plt.plot(years,death,color = 'purple')
-plt.scatter(years, death, color = 'g')
+#plt.legend(['crecimiento poblacional'])
+
+plt.plot(years, population, 'r')
+plt.plot(years, deaths, 'g')
+plt.scatter(years, population, color = 'r')
+plt.scatter(years, deaths, color = 'g')
 plt.legend(['crecimiento', 'muertes'])
 
 plt.show()
