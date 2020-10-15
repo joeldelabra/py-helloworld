@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from sklearn import linear_model
 
 rawData = pd.read_csv('StudentsPerformance.csv')
 
@@ -37,7 +38,7 @@ maleMathScoreAverage = np.average(maleMathScore)
 plt.figure()
 
 #Grafica Promedio en Pruebas de Matemátcias por género
-plt.subplot(3, 2, 1)
+plt.subplot(3, 3, 1)
 plt.title('Promedio de pruebas de matemáticas por genero')
 
 plt.bar([1], [maleMathScoreAverage], color = 'blue')
@@ -77,7 +78,7 @@ gDScoreAverage = np.average(gDMathScore)
 gEScoreAverage = np.average(gEMathScore)
 
 #Gráfica Promedio en Pruebas de Matemátcias por etnia
-plt.subplot(3, 2, 2)
+plt.subplot(3, 3, 2)
 plt.title('Promedio de pruebas de matemáticas por etnia')
 
 plt.bar(1, gAScoreAverage, color = 'r')
@@ -117,7 +118,7 @@ ADScoreAverage = np.average(ADMathScore)
 HSScoreAverage = np.average(HSMathScore)
 
 #Gráfica Promedio en Pruebas de Matemátcias por Nivel educativo de los padres
-plt.subplot(3, 2, 3)
+plt.subplot(3, 3, 3)
 plt.title('Promedio de pruebas de matemáticas por Nivel educativo de los padres')
 
 plt.bar(1, SCScoreAverage, color = 'g')
@@ -145,7 +146,7 @@ reducedMathScore = reducedData['math score']
 standarScoreAverage = np.average(standarMathScore)
 reducedScoreAverage = np.average(reducedMathScore)
 
-plt.subplot(3, 2, 4)
+plt.subplot(3, 3, 4)
 plt.title('Promedio de pruebas de matemáticas por grado de alimentación')
 
 plt.bar(1, standarScoreAverage, color = 'g')
@@ -170,7 +171,7 @@ completedMathScore = completedData['math score']
 noneScoreAverage = np.average(noneMathScore)
 completedScoreAverage = np.average(completedMathScore)
 
-plt.subplot(3, 2, 5)
+plt.subplot(3, 3, 5)
 plt.title('Promedio de pruebas de matemáticas por preparacion')
 
 plt.bar(1, noneScoreAverage, color = 'r')
@@ -180,5 +181,48 @@ plt.legend(['none', 'completed'])
 
 plt.xlabel('preparación')
 plt.ylabel('promedio en matematicas')
+
+#scatter
+
+#print(SCData)
+plt.subplot(3, 3, 6)
+
+
+#plt.title("some college relacion puntaje de matematicas")
+
+#plt.bar(SCData['lunch'], SCData['math score'], color = 'g')
+
+#print(reducedData)
+
+#print(SCMathScore)
+#print(reducedMathScore)
+
+plt.title('relacion entre el score de matematicas y lectura')
+
+plt.scatter(rawData['reading score'], rawData['math score'], color = 'r')
+plt.legend(['pruebas de matematicas'])
+
+plt.ylabel('math score')
+plt.xlabel('reading score')
+
+reg = linear_model.LinearRegression()
+
+print(rawData['math score'])
+print(rawData[['math score']])
+
+reg.fit(rawData[['reading score']], rawData['math score'])
+
+mathScorePredict = reg.predict(rawData[['reading score']])
+
+#print(mathScorePredict)
+
+plt.plot(rawData['reading score'], mathScorePredict, color = 'b')
+
+#plt.show()
+
+#print(reg.coef_)
+#print(reg.intercept_)
+
+#print(reg.coef_ * 70 + reg.intercept_) y = mx + b donde m es el coeficiente, la x es la entrada y b es la intercepción o error
 
 plt.show()
